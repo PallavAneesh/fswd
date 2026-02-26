@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Hero Page</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #f4f6f9;
+    }
+
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 60px 10%;
+        min-height: 100vh;
+        background: linear-gradient(to right, #4e73df, #1cc88a);
+        color: white;
+    }
+
+    .hero-text {
+        flex: 1;
+    }
+
+    .hero-text h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    .hero-text p {
+        font-size: 18px;
+        margin-bottom: 30px;
+        max-width: 500px;
+    }
+
+    .hero-text button {
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background: white;
+        color: #4e73df;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .hero-text button:hover {
+        background: #ddd;
+    }
+
+    .hero-image {
+        flex: 1;
+        text-align: center;
+    }
+
+    .hero-image img {
+        width: 80%;
+        max-width: 400px;
+    }
+
+    /* Responsive for Mobile */
+    @media (max-width: 768px) {
+        .hero {
+            flex-direction: column;
+            text-align: center;
+            padding: 40px 5%;
+        }
+
+        .hero-text h1 {
+            font-size: 32px;
+        }
+
+        .hero-image {
+            margin-top: 30px;
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Build Responsive Websites Easily</h1>
+        <p>Create modern, flexible, and mobile-friendly layouts using Flexbox and clean design principles.</p>
+        <button>Get Started</button>
+    </div>
+
+    <div class="hero-image">
+        <img src="https://picsum.photos/500/400" alt="Hero Image">
+    </div>
+</section>
+
+</body>
+</html>
