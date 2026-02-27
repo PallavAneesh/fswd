@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 50px auto;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: white;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    li.completed span {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    .delete-btn {
+      background-color: #e74c3c;
+      padding: 5px 10px;
+      font-size: 13px;
+      border-radius: 6px;
+    }
+
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .complete-btn {
+      background-color: #3498db;
+      padding: 5px 10px;
+      font-size: 13px;
+      border-radius: 6px;
+      margin-right: 5px;
+    }
+
+    .complete-btn:hover {
+      background-color: #2980b9;
+    }
+
+    #task-count {
+      text-align: center;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    #error-msg {
+      color: red;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 To-Do List</h1>
+
+  <!-- DOM Manipulation: dynamically updating elements -->
+  <div class="input-section">
+    <input type="text" id="task-input" placeholder="Enter a task..." />
+    <button id="add-btn">Add Task</button>
+  </div>
+
+  <p id="error-msg"></p>
+  <p id="task-count">Total Tasks: 0</p>
+
+  <ul id="task-list"></ul>
+
+  <script>
+    // ============================================
+    // DOM Selection Methods
+    // ============================================
+    const addBtn = document.getElementById('add-btn');
+    const taskInput = document.getElementById('task-input');
+    const taskList = document.getElementById('task-list');
+    const taskCount = document.getElementById('task-count');
+    const errorMsg = document.getElementById('error-msg');
+
+    let totalTasks = 0;
+
+    // ============================================
+    // Event Handling - click event
+    // ============================================
+    addBtn.addEventListener('click', function() {
+      addTask();
+    });
+
+    // Event Handling - keypress event (Enter key)
+    taskInput.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        addTask();
+      }
+    });
+
+    // ============================================
+    // Function to Add Task
+    // ============================================
+    function addTask() {
+      const taskText = taskInput.value.trim();
+
+      // Validation
+      if (taskText === '') {
+        errorMsg.textContent = 'Please enter a task!';
+        return;
+      }
+
+      errorMsg.textContent = '';
+
+      // Create new list item - DOM Manipulation
+      const li = document.createElement('li');
+
+      const span = document.createElement('span');
+      span.textContent = taskText;
+
+      // Complete button
+      const completeBtn = document.createElement('button');
+      completeBtn.textContent = '✔ Done';
+      completeBtn.classList.add('complete-btn');
+
+      // Event Handling - mark as complete
+      completeBtn.addEventListener('click', function() {
+        li.classList.toggle('completed');
+        completeBtn.textContent = li.classList.contains('completed') ? '↩ Undo' : '✔ Done';
+      });
+
+      // Delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = '🗑 Delete';
+      deleteBtn.classList.add('delete-btn');
+
+      // Event Handling - delete task
+      deleteBtn.addEventListener('click', function() {
+        taskList.removeChild(li);
+        totalTasks--;
+        updateCount();
+      });
+
+      // Append elements
+      const btnGroup = document.createElement('div');
+      btnGroup.appendChild(completeBtn);
+      btnGroup.appendChild(deleteBtn);
+
+      li.appendChild(span);
+      li.appendChild(btnGroup);
+      taskList.appendChild(li);
+
+      // Update count - DOM Manipulation
+      totalTasks++;
+      updateCount();
+
+      // Clear input
+      taskInput.value = '';
+    }
+
+    // ============================================
+    // Function to Update Task Count
+    // ============================================
+    function updateCount() {
+      taskCount.textContent = `Total Tasks: ${totalTasks}`;
+    }
+
+    // ============================================
+    // querySelector and querySelectorAll example
+    // ============================================
+    const firstBtn = document.querySelector('button');
+    console.log("First button found:", firstBtn.id);
+
+    const allButtons = document.querySelectorAll('button');
+    console.log("Total buttons on page:", allButtons.length);
+
+  </script>
+
+</body>
+</html>
